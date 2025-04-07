@@ -456,6 +456,116 @@
 
 
 
+// "use client";
+
+// import { useParams } from "next/navigation";
+// import { useQuery } from "convex/react";
+// import { api } from "@/convex/_generated/api";
+// import { CoachingExpert } from "@/services/Options";
+// import Image from "next/image";
+// import { UserButton } from "@stackframe/stack";
+// import { useEffect, useState } from "react";
+// import Script from "next/script";
+
+// function DiscussionRoom() {
+//   const { roomid } = useParams();
+//   const discussionRoomData = useQuery(api.DiscussionRoom.GetDiscussionRoom, { id: roomid });
+//   const [expert, setExpert] = useState(null);
+
+//   useEffect(() => {
+//     if (discussionRoomData) {
+//       setExpert(CoachingExpert.find(item => item.name === discussionRoomData.expertName));
+//     }
+//   }, [discussionRoomData]);
+
+//   return (
+//     <div className="-mt-18">
+//       <h2 className="text-lg font-bold">{discussionRoomData?.coachingOption}</h2>
+
+//       <div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-10">
+//         {/* Left Side - Expert + ElevenLabs */}
+//         <div className="col-span-2">
+//           <div className="h-[60vh] bg-secondary rounded-4xl flex flex-col justify-center items-center relative">
+//             {expert?.avatar && (
+//               <Image
+//                 src={expert.avatar}
+//                 alt="Expert Avatar"
+//                 width={200}
+//                 height={200}
+//                 className="h-[170px] w-[170px] object-cover rounded-full animate-pulse"
+//               />
+//             )}
+//             <h2 className="text-gray-500">{expert?.name}</h2>
+
+//             <div className="p-5 bg-gray-200 px-10 rounded-lg absolute bottom-10 right-10">
+//               <UserButton />
+//             </div>
+//           </div>
+
+//           {/* ElevenLabs Widget */}
+//           <div className="mt-5 flex items-center justify-center">
+//             <div>
+//               {/* <elevenlabs-convai agent-id="8ZbpxsSTgPRo1Tn6aOyo"></elevenlabs-convai>
+//               <Script
+//                 src="https://elevenlabs.io/convai-widget/index.js"
+//                 async
+//                 type="text/javascript"
+//               /> */}
+              
+
+
+//               <elevenlabs-convai agent-id="f4Ge9ZuSac739ltw5yvd"></elevenlabs-convai>
+//               <Script
+//                 src="https://elevenlabs.io/convai-widget/index.js"
+//                 async
+//                 type="text/javascript"
+//               />
+
+
+
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Right Side - Chatling Chatbot */}
+//         <div className="w-full">
+//           <div className="h-[60vh] bg-secondary rounded-4xl overflow-hidden">
+//             <div className="w-full h-full">
+//               <div id="chatling-inline-bot" className="w-full h-full" />
+//             </div>
+//           </div>
+
+//           <h2 className="mt-4 text-gray-400 text-sm">
+//             At the end of the conversation, we automatically generate feedback/notes based on your discussion.
+//           </h2>
+
+//           {/* ✅ Load Chatling Script */}
+//           <Script id="chatling-config" strategy="beforeInteractive">
+//             {`
+//               window.chtlConfig = {
+//                 chatbotId: "7591168229",
+//                 display: "page_inline"
+//               };
+//             `}
+//           </Script>
+//           <Script
+//             id="chatling-script"
+//             strategy="lazyOnload"
+//             async
+//             src="https://chatling.ai/js/embed.js"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default DiscussionRoom;
+
+
+
+
+
 "use client";
 
 import { useParams } from "next/navigation";
@@ -471,12 +581,26 @@ function DiscussionRoom() {
   const { roomid } = useParams();
   const discussionRoomData = useQuery(api.DiscussionRoom.GetDiscussionRoom, { id: roomid });
   const [expert, setExpert] = useState(null);
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
   useEffect(() => {
     if (discussionRoomData) {
       setExpert(CoachingExpert.find(item => item.name === discussionRoomData.expertName));
     }
   }, [discussionRoomData]);
+
+  useEffect(() => {
+    // Auto-remove the ElevenLabs widget after 1.5 minutes
+    const timeout = setTimeout(() => {
+      const widget = document.querySelector("elevenlabs-convai");
+      if (widget && widget.parentNode) {
+        widget.parentNode.removeChild(widget);
+        setShowPaymentPopup(true);
+      }
+    }, 90000); // 1.5 minutes
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="-mt-18">
@@ -503,28 +627,33 @@ function DiscussionRoom() {
           </div>
 
           {/* ElevenLabs Widget */}
-          <div className="mt-5 flex items-center justify-center">
-            <div>
-              {/* <elevenlabs-convai agent-id="8ZbpxsSTgPRo1Tn6aOyo"></elevenlabs-convai>
-              <Script
-                src="https://elevenlabs.io/convai-widget/index.js"
-                async
-                type="text/javascript"
-              /> */}
-              
-
-
-              <elevenlabs-convai agent-id="f4Ge9ZuSac739ltw5yvd"></elevenlabs-convai>
-              <Script
-                src="https://elevenlabs.io/convai-widget/index.js"
-                async
-                type="text/javascript"
-              />
-
-
-
+          {!showPaymentPopup && (
+            <div className="mt-5 flex items-center justify-center">
+              <div>
+                <elevenlabs-convai agent-id="f4Ge9ZuSac739ltw5yvd"></elevenlabs-convai>
+                <Script
+                  src="https://elevenlabs.io/convai-widget/index.js"
+                  async
+                  type="text/javascript"
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Payment Popup */}
+          {showPaymentPopup && (
+            <div className="mt-6 p-6 bg-white shadow-xl border rounded-xl text-center">
+              <h2 className="text-xl font-semibold text-red-500 mb-2">⚠️ Conversation limit reached!</h2>
+              <p className="mb-4">Please scan the QR code to continue for just ₹10 and write a message "Pragya Ai"</p>
+              <Image
+                src="/qrcode.jpg"
+                alt="Payment QR Code"
+                width={200}
+                height={200}
+                className="mx-auto"
+              />
+            </div>
+          )}
         </div>
 
         {/* Right Side - Chatling Chatbot */}
