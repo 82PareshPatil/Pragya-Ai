@@ -53,8 +53,8 @@ export const CoachingExpert = [
         pro: false
     },
     {
-        name: 'Vedant',
-        avatar: '/v3.png',
+        name: 'Arya',
+        avatar: '/v4.png',
         pro: false
     },
     // {
