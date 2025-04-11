@@ -636,6 +636,15 @@ function DiscussionRoom() {
                   async
                   type="text/javascript"
                 />
+
+<elevenlabs-convai agent-id="dBXPmoFDogDMI3u6OylT"></elevenlabs-convai>
+                <Script
+                  src="https://elevenlabs.io/convai-widget/index.js"
+                  async
+                  type="text/javascript"
+                />
+
+
               </div>
             </div>
           )}
