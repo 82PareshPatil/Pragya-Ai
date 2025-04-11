@@ -590,14 +590,14 @@ function DiscussionRoom() {
   }, [discussionRoomData]);
 
   useEffect(() => {
-    // Auto-remove the ElevenLabs widget after 1.5 minutes
-    const timeout = setTimeout(() => {
-      const widget = document.querySelector("elevenlabs-convai");
-      if (widget && widget.parentNode) {
-        widget.parentNode.removeChild(widget);
-        setShowPaymentPopup(true);
-      }
-    }, 90000); // 1.5 minutes
+    // // Auto-remove the ElevenLabs widget after 1.5 minutes
+    // const timeout = setTimeout(() => {
+    //   const widget = document.querySelector("elevenlabs-convai");
+    //   if (widget && widget.parentNode) {
+    //     widget.parentNode.removeChild(widget);
+    //     setShowPaymentPopup(true);
+    //   }
+    // }, 90000); // 1.5 minutes
 
     return () => clearTimeout(timeout);
   }, []);
@@ -640,7 +640,7 @@ function DiscussionRoom() {
             </div>
           )}
 
-          {/* Payment Popup */}
+          {/* Payment Popup
           {showPaymentPopup && (
             <div className="mt-6 p-6 bg-white shadow-xl border rounded-xl text-center">
               <h2 className="text-xl font-semibold text-red-500 mb-2">⚠️ Conversation limit reached!</h2>
@@ -653,7 +653,7 @@ function DiscussionRoom() {
                 className="mx-auto"
               />
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Right Side - Chatling Chatbot */}
