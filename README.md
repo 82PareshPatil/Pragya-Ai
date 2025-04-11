@@ -89,11 +89,10 @@ npm run dev
 
 ## 👥 Team Members & Roles
 
-| Name           | Role                      |
-|----------------|---------------------------|
-| **Paresh Patil** | Full Stack Developer, Designer, and Founder of Pragya AI |
-
-> If collaborating, add your team members here.
+| Name              | Role                                                                 |
+|-------------------|----------------------------------------------------------------------|
+| **Paresh Patil**  | Full Stack Developer, Designer, Presentation, Thinking, Founder of Pragya AI |
+| **Ayan Memon**    | Design, Thinking, and Presentation (PPT) Maker                       |
 
 ---
 
@@ -119,9 +118,10 @@ Licensed under the [MIT License](LICENSE).
 ## 📬 Contact
 
 Created with ❤️ by [Paresh Patil](https://github.com/82PareshPatil)
-Help
+
 ---
 
 ### 🔖 Quote
 
 > “At the end of every conversation, Pragya AI automatically generates feedback and notes – making learning smarter and easier.”
+
