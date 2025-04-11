@@ -630,12 +630,8 @@ function DiscussionRoom() {
           {!showPaymentPopup && (
             <div className="mt-5 flex items-center justify-center">
               <div>
-                <elevenlabs-convai agent-id="f4Ge9ZuSac739ltw5yvd"></elevenlabs-convai>
-                <Script
-                  src="https://elevenlabs.io/convai-widget/index.js"
-                  async
-                  type="text/javascript"
-                />
+              {/* agent-id="f4Ge9ZuSac739ltw5yvd" */}
+              
 
 <elevenlabs-convai agent-id="dBXPmoFDogDMI3u6OylT"></elevenlabs-convai>
                 <Script
